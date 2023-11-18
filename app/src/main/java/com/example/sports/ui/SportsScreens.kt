@@ -140,43 +140,6 @@ fun SportsApp(
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SportsAppBar(
-    onBackButtonClick: () -> Unit,
-    isShowingListPage: Boolean,
-    modifier: Modifier = Modifier
-) {
-    TopAppBar(
-        title = {
-            Text(
-                text =
-                if (!isShowingListPage) {
-                    stringResource(R.string.detail_fragment_label)
-                } else {
-                    stringResource(R.string.list_fragment_label)
-                }
-            )
-        },
-        navigationIcon = if (!isShowingListPage) {
-            {
-                IconButton(onClick = onBackButtonClick) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.back_button)
-                    )
-                }
-            }
-        } else {
-            { Box {} }
-        },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary
-        ),
-        modifier = modifier,
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
 private fun SportsListItem(
     sport: Sport,
     onItemClick: (Sport) -> Unit,
@@ -264,7 +227,7 @@ private fun SportsList(
     LazyColumn(
         contentPadding = contentPadding,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
-        modifier = modifier,
+        modifier = modifier.padding(top = dimensionResource(R.dimen.padding_medium)),
     ) {
         items(sports, key = { sport -> sport.id }) { sport ->
             SportsListItem(
@@ -274,6 +237,8 @@ private fun SportsList(
         }
     }
 }
+
+
 
 @Composable
 private fun SportsDetail(
