@@ -62,6 +62,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -203,7 +204,45 @@ private fun SportsListItem(
         }
     }
 }
-
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SportsAppBar(
+    onBackButtonClick: () -> Unit,
+    isShowingListPage: Boolean,
+    windowSize: WindowWidthSizeClass,
+    modifier: Modifier = Modifier
+) {
+    val isShowingDetailPage = windowSize != WindowWidthSizeClass.Expanded && !isShowingListPage
+    TopAppBar(
+        title = {
+            Text(
+                text =
+                if (isShowingDetailPage) {
+                    stringResource(R.string.detail_fragment_label)
+                } else {
+                    stringResource(R.string.list_fragment_label)
+                },
+                fontWeight = FontWeight.Bold
+            )
+        },
+        navigationIcon = if (isShowingDetailPage) {
+            {
+                IconButton(onClick = onBackButtonClick) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = stringResource(R.string.back_button)
+                    )
+                }
+            }
+        } else {
+            { Box {} }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primary
+        ),
+        modifier = modifier,
+    )
+}
 @Composable
 private fun SportsListImageItem(sport: Sport, modifier: Modifier = Modifier) {
     Box(
