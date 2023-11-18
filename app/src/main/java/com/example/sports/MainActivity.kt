@@ -28,8 +28,8 @@ import com.example.sports.ui.theme.SportsTheme
 /**
  * Activity for Sports app
  */
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
